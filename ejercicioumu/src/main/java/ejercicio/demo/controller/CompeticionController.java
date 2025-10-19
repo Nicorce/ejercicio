@@ -1,12 +1,12 @@
-package controller;
+package ejercicio.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import clases.Competicion;
-import clases.Equipo;
-import clases.Jornada;
-import service.CompeticionService;
+import ejercicio.demo.clases.Competicion;
+import ejercicio.demo.clases.Equipo;
+import ejercicio.demo.clases.Jornada;
+import ejercicio.demo.service.CompeticionService;
 
 @RestController
 @RequestMapping("/api")

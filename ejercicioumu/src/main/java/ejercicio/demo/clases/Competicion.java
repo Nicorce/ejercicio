@@ -1,4 +1,4 @@
-package clases;
+package ejercicio.demo.clases;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -11,17 +11,17 @@ public class Competicion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String nombre;
-    private String deporte;
-    private int numeroPistasPorJornada;
+    private String nombre; //Nombre de la competición
+    private String deporte; //Deporte de la competición
+    private int numeroPistasPorJornada; //Numero de pistas por jornada
 
     @ElementCollection
-    private List<LocalDate> fechasDeCelebracion;
+    private List<LocalDate> fechasDeCelebracion; //Fechas de celebración
 
     @OneToOne(cascade = CascadeType.ALL)
     private Jornada primeraJornada;
 
-    // Constructor
+  //Constructores POJO
     public Competicion(String nombre, String deporte, List<LocalDate> fechasDeCelebracion, int numeroPistasPorJornada, Jornada primeraJornada) {
         this.nombre = nombre;
         this.deporte = deporte;

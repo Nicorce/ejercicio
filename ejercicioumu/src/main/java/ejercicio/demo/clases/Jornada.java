@@ -1,4 +1,4 @@
-package clases;
+package ejercicio.demo.clases;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
@@ -12,15 +12,15 @@ public class Jornada {
     private int id;
 
     @ElementCollection
-    private List<Integer> equiposJuegan = new ArrayList<>();
+    private List<Integer> equiposJuegan = new ArrayList<>(); //Equipos que juegan la jornada
 
     @ElementCollection
-    private List<Integer> pistasEquiposJuegan = new ArrayList<>();
+    private List<Integer> pistasEquiposJuegan = new ArrayList<>(); //Pistas en las que juega cada equipo que juega la jornada
 
     @ElementCollection
-    private List<Integer> equiposNoJuegan = new ArrayList<>();
+    private List<Integer> equiposNoJuegan = new ArrayList<>(); //Equipos que no juegan la jornada
     
-
+    //Constructores POJO
     public Jornada() {
         this.equiposJuegan = new ArrayList<>();
         this.pistasEquiposJuegan = new ArrayList<>();
@@ -67,29 +67,39 @@ public class Jornada {
         this.equiposNoJuegan.add(equipoId);
 
     }
-    public void generarPrimeraJornada(int numPistas, int numequipos,List<Integer> idequipos ) {
-    	int contador=0;
-    	int pista=0;
-    	for (int i=0;i<=numPistas-1;i++) {
-    		if((contador+2)<=numequipos-1) {
-    	        addEquipoJuega(idequipos.get(contador), pista);
-    	        addEquipoJuega(idequipos.get(contador + 1), pista);
-        		contador=contador+2;
-        		pista++;
-    		}else {
-    			if((contador+1)<=numequipos) {
-    		        addEquipoNoJuega(idequipos.get(contador));
-            		contador++;
-        		}
-    		}
+    //Generar la primera jornada, si fuese necesario generar más jornadas sería necesario modificar la función
+    public void generarPrimeraJornada(int numPistas, int numequipos, List<Integer> idequipos) {
+        int contador = 0;
+        int pista = 0;
 
-    	}
-    	if(contador<numequipos-1) {
-    		for(int i=contador;i<=numequipos-1;i++) {
-    	        addEquipoNoJuega(idequipos.get(contador));
-        		contador++;
-    		}
-    	}
+        // Recorremos pistas mientras haya pistas libres y equipos por jugar
+        while (pista < numPistas && contador < numequipos) {
+            int restantes = numequipos - contador;
+
+            if (restantes >= 4) {
+                // Asignamos 4 equipos a la pista 
+                addEquipoJuega(idequipos.get(contador), pista);
+                addEquipoJuega(idequipos.get(contador + 1), pista);
+                addEquipoJuega(idequipos.get(contador + 2), pista);
+                addEquipoJuega(idequipos.get(contador + 3), pista);
+                contador += 4;
+            } else if (restantes >= 2) {
+                // Asignamos 2 equipos a la pista
+                addEquipoJuega(idequipos.get(contador), pista);
+                addEquipoJuega(idequipos.get(contador + 1), pista);
+                contador += 2;
+            } else {
+                break;
+            }
+
+            pista++;
+        }
+
+        // Cualquier equipo restante no juega
+        while (contador < numequipos) {
+            addEquipoNoJuega(idequipos.get(contador));
+            contador++;
+        }
     }
 
     @Override

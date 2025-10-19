@@ -1,4 +1,4 @@
-package clases;
+package ejercicio.demo.clases;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -9,12 +9,12 @@ public class Equipo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String nombre;
+    private String nombre; //Nombre del equipo
 
     @ElementCollection
-    private List<Integer> competiciones;
+    private List<Integer> competiciones; //Competiciones en las que participa
 
-    // Constructor
+    //Constructores POJO
     public Equipo( String nombre, List<Integer> competiciones) {
         this.nombre = nombre;
         this.competiciones = competiciones;
